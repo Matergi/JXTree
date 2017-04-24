@@ -453,7 +453,7 @@ public class Tree implements Serializable
     {
         if (json != JSONObject.NULL)
         {
-            creazioneAlbero(tree.getNodo(), json);
+            creazioneAlbero(tree.getNodo(), json, false);
         }
 
         return tree;
@@ -464,7 +464,7 @@ public class Tree implements Serializable
      * @param nodo Nodo per la funzione ricorsiva
      * @param object OBJECT in Json
      */
-    private void creazioneAlbero(Nodo nodo, JSONObject object)
+    private void creazioneAlbero(Nodo nodo, JSONObject object, boolean isArray)
     {
         try
         {
@@ -479,18 +479,30 @@ public class Tree implements Serializable
                     //è un ramo
                     Nodo nodoFiglio = new Nodo(key, value.toString());
                     nodo.getPuntatore().add(nodoFiglio);
-                    creazioneAlbero(nodoFiglio, (JSONObject) value);
+                    creazioneAlbero(nodoFiglio, (JSONObject) value, isArray);
                 }
                 else if (value instanceof JSONArray)
                 {
                     //è un ramo
+                    isArray = true;
                     Nodo nodoFiglio = new Nodo(key, value.toString());
                     nodo.getPuntatore().add(nodoFiglio);
-                    toList(nodoFiglio, (JSONArray) value, key);
+                    toList(nodoFiglio, (JSONArray) value, key, isArray);
                 }
                 else
                 {
-                    nodo.getPuntatore().add(new Nodo(key, value.toString()));
+                    if (isArray)
+                    {
+                        Nodo nodoFiglio = new Nodo("array", "array");
+                        nodo.getPuntatore().add(nodoFiglio);
+                        nodo = nodoFiglio;
+                        nodo.getPuntatore().add(new Nodo(key, value.toString()));
+                        isArray = false;
+                    }
+                    else
+                    {
+                        nodo.getPuntatore().add(new Nodo(key, value.toString()));
+                    }
                 }
             }
         }
@@ -508,7 +520,7 @@ public class Tree implements Serializable
      * @return Ritorna una lista di Object
      * @throws JSONException
      */
-    private List<Object> toList(Nodo nodo, JSONArray array, String key) throws JSONException {
+    private List<Object> toList(Nodo nodo, JSONArray array, String key, boolean isArray) throws JSONException {
         List<Object> list = new ArrayList<>();
         for (int i = 0; i < array.length(); i++)
         {
@@ -516,11 +528,11 @@ public class Tree implements Serializable
             if (value instanceof JSONArray) {
                 Nodo nodoFiglio = new Nodo(key, value.toString());
                 nodo.getPuntatore().add(nodoFiglio);
-                value = toList(nodo, (JSONArray) value, key);
+                value = toList(nodo, (JSONArray) value, key, isArray);
             }
             else if (value instanceof JSONObject)
             {
-                creazioneAlbero(nodo, (JSONObject) value);
+                creazioneAlbero(nodo, (JSONObject) value, isArray);
             }
             list.add(value);
         }
