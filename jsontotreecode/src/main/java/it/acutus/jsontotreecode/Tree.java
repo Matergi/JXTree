@@ -73,6 +73,44 @@ public class Tree implements Serializable
     }
 
     /**
+     * classica ricerca di un nodo ma nello stesso livello, non va in profondità
+     * @param nodo nodo su cui andare a cercarci dentro
+     * @param key la chiave da cercare
+     * @param downKey la sottochiave da cercare se esiste, altrimenti null
+     */
+    private void searchNodoIntoSameLevel(Nodo nodo, String key, String downKey)
+    {
+        for (int i = 0 ; i < nodo.getPuntatore().size() ; i++)
+        {
+            if (nodo.getPuntatore().get(i).getKey().equals("array") && nodo.getPuntatore().get(i).getValue().equals("array"))
+            {
+                searchNodoIntoSameLevel(nodo.getPuntatore().get(i), key, downKey);
+            }
+
+            if (downKey == null)
+            {
+                if (nodo.getPuntatore().get(i).getKey().equals(key))
+                {
+                    nodoSearch = nodo.getPuntatore().get(i);
+                }
+            }
+            else
+            {
+                if (nodo.getPuntatore().get(i).getKey().equals(key))
+                {
+                    for (int a = 0 ; a < nodo.getPuntatore().get(i).getPuntatore().size() ; a ++)
+                    {
+                        if (nodo.getPuntatore().get(i).getPuntatore().get(a).getKey().equals(downKey))
+                        {
+                            nodoSearch = nodo.getPuntatore().get(i).getPuntatore().get(a);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * ricerca particolare, perchè cerca la key che contiene un certo valore dentro... ma lo trova anche se nel json la key e il valore sono invertiti
      * @param nodo nodo su cui cercare
      * @param key la key che ti serve cercare
@@ -422,6 +460,22 @@ public class Tree implements Serializable
     {
         nodoSearch = null;
         searchNodo(nodo, key, null);
+
+        if (nodoSearch != null)
+        {
+            return new Leaf(nodoSearch);
+        }
+        else
+        {
+            Log.e(TAG, "NON E' STATO TROVATO NESSUNA KEY CHE CORRISPONDA A KEY : '" + key + "'");
+        }
+        return null;
+    }
+
+    Leaf searchKeySameLevel(String key, Nodo nodo)
+    {
+        nodoSearch = null;
+        searchNodoIntoSameLevel(nodo, key, null);
 
         if (nodoSearch != null)
         {

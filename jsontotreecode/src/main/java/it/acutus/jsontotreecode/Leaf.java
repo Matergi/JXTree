@@ -84,7 +84,7 @@ public class Leaf
     public Leaf search(String key)
     {
         Tree tree = new Tree();
-        return tree.advanceSearchKey(key, nodo);
+        return tree.searchKeySameLevel(key, nodo);
     }
 
     public boolean contain(String key, String value)
