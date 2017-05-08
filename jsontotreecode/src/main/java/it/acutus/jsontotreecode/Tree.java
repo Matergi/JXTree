@@ -588,6 +588,11 @@ public class Tree implements Serializable
             {
                 creazioneAlbero(nodo, (JSONObject) value, isArray);
             }
+            else
+            {
+                Nodo nodoFiglio = new Nodo(key, value.toString());
+                nodo.getPuntatore().add(nodoFiglio);
+            }
             list.add(value);
         }
         return list;
