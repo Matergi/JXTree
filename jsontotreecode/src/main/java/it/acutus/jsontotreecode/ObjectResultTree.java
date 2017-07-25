@@ -30,11 +30,11 @@ public class ObjectResultTree
         Integer mResult = null;
         for (int i = 0 ; i < result.size() ; i++)
         {
-            if (result.get(i).split(Tree.kSeparatore)[0].equals(nameAttribute))
+            if (result.get(i).split(JsonTree.kSeparatore)[0].equals(nameAttribute))
             {
-                if (StringUtils.isNumeric(result.get(i).split(Tree.kSeparatore)[1]))
+                if (StringUtils.isNumeric(result.get(i).split(JsonTree.kSeparatore)[1]))
                 {
-                    mResult = Integer.parseInt(result.get(i).split(Tree.kSeparatore)[1]);
+                    mResult = Integer.parseInt(result.get(i).split(JsonTree.kSeparatore)[1]);
                 }
             }
         }
@@ -46,9 +46,9 @@ public class ObjectResultTree
         String mResult = null;
         for (int i = 0 ; i < result.size() ; i++)
         {
-            if (result.get(i).split(Tree.kSeparatore)[0].equals(nameAttribute))
+            if (result.get(i).split(JsonTree.kSeparatore)[0].equals(nameAttribute))
             {
-                mResult = result.get(i).split(Tree.kSeparatore)[1];
+                mResult = result.get(i).split(JsonTree.kSeparatore)[1];
             }
         }
         return mResult;

@@ -1,29 +1,29 @@
 package it.acutus.jsontotreecode;
 
-public class Leaf
+public class JsonLeaf
 {
-    private Nodo nodo;
+    private JsonNodo jsonNodo;
 
-    public Leaf(Nodo nodo)
+    public JsonLeaf(JsonNodo jsonNodo)
     {
-        this.nodo = nodo;
+        this.jsonNodo = jsonNodo;
     }
 
-    public Leaf(Tree tree)
+    public JsonLeaf(JsonTree jsonTree)
     {
-        this.nodo = tree.getNodo();
+        this.jsonNodo = jsonTree.getJsonNodo();
     }
 
     public int size()
     {
-        return nodo.getPuntatore().size();
+        return jsonNodo.getPuntatore().size();
     }
 
     public String getValue()
     {
-        if (nodo.getValue() != null)
+        if (jsonNodo.getValue() != null)
         {
-            return nodo.getValue();
+            return jsonNodo.getValue();
         }
         else if (size() > 0)
         {
@@ -73,18 +73,18 @@ public class Leaf
 
     public String getKey()
     {
-        return nodo.getKey();
+        return jsonNodo.getKey();
     }
 
-    public Leaf get(int i)
+    public JsonLeaf get(int i)
     {
-        return new Leaf(nodo.getPuntatore().get(i));
+        return new JsonLeaf(jsonNodo.getPuntatore().get(i));
     }
 
-    public Leaf search(String key)
+    public JsonLeaf search(String key)
     {
-        Tree tree = new Tree();
-        return tree.searchKeySameLevel(key, nodo);
+        JsonTree jsonTree = new JsonTree();
+        return jsonTree.searchKeySameLevel(key, jsonNodo);
     }
 
     public boolean contain(String key, String value)

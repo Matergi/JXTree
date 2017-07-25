@@ -3,28 +3,28 @@ package it.acutus.jsontotreecode;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Nodo implements Serializable
+public class JsonNodo implements Serializable
 {
     private String key;
     private String value;
     private String tag;
     private int level = -100;
 
-    private ArrayList<Nodo> puntatore = new ArrayList<>();
+    private ArrayList<JsonNodo> puntatore = new ArrayList<>();
 
-    public Nodo(String key, String value, int level)
+    public JsonNodo(String key, String value, int level)
     {
         this.key = key;
         this.value = value;
         this.level = level;
     }
 
-    public Nodo(String key, String value)
+    public JsonNodo(String key, String value)
     {
         this.key = key;
         this.value = value;
     }
-    public Nodo()
+    public JsonNodo()
     {
 
     }
@@ -45,7 +45,7 @@ public class Nodo implements Serializable
         this.value = value;
     }
 
-    public ArrayList<Nodo> getPuntatore() {
+    public ArrayList<JsonNodo> getPuntatore() {
         return puntatore;
     }
 

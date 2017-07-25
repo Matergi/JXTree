@@ -4,8 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import it.acutus.jsontotreecode.Leaf;
-import it.acutus.jsontotreecode.Tree;
+import it.acutus.jsontotreecode.JsonLeaf;
+import it.acutus.jsontotreecode.JsonTree;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
                 "    ]\n" +
                 "}";
 
-        Tree tree = new Tree();
-        tree.buildTree(json);
+        JsonTree jsonTree = new JsonTree();
+        jsonTree.buildTree(json);
 
-        Leaf foglia = tree.searchKey("result");
+        JsonLeaf foglia = jsonTree.searchKey("result");
 
         Log.d("a", foglia.getValue());
     }

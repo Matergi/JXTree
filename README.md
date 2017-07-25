@@ -24,9 +24,9 @@ dependencies
 
 ## Usare la libreria
 ```java
-Tree tree = new Tree(); 
-tree.buildTree(jsonData); //costruisce l'albero in base al Json passato
-Leaf leafResponse = tree.searchKey("result");  //cerca la key 'result' nel Json e restituisce la foglia
+Tree jsonTree = new Tree();
+jsonTree.buildTree(jsonData); //costruisce l'albero in base al Json passato
+Leaf leafResponse = jsonTree.searchKey("result");  //cerca la key 'result' nel Json e restituisce la foglia
 
 // se leafResponse nel 'value' contiene un Array si puo sfruttare la funzione .size() per sapere la lunghezza dell'array di oggetti che contiene ovvero: 
 
