@@ -111,49 +111,7 @@ public class JsonTree implements Serializable
     }
 
     /**
-     * cerca la key che contiene un certo valore dentro
-     * @param jsonNodo jsonNodo su cui cercare
-     * @param key la key che ti serve cercare
-     * @param downKey la sottochiave che ti serve cercare
-     * @param contain la stringa che contine il value della key
-     */
-    private void searchNodoWithDownKeyAndContain(JsonNodo jsonNodo, String key, String downKey, String contain)
-    {
-        for (int i = 0; i < jsonNodo.getPuntatore().size() ; i++)
-        {
-            if (jsonNodo.getPuntatore().get(i).getKey().equals(key))
-            {
-                boolean flagFindDownKey = false;
-                boolean flagFindContain = false;
-                int positionKey = -100;
-                int positionContent = -100;
-
-                for (int a = 0; a < jsonNodo.getPuntatore().get(i).getPuntatore().size() ; a ++)
-                {
-                    if (jsonNodo.getPuntatore().get(i).getPuntatore().get(a).getKey().equals(downKey))
-                    {
-                        flagFindDownKey = true;
-                        if (positionKey == -100)
-                            positionContent = a;
-                    }
-                    else if (jsonNodo.getPuntatore().get(i).getPuntatore().get(a).getValue().equals(contain))
-                    {
-                        flagFindContain = true;
-                        positionKey = a;
-                    }
-                }
-                if (flagFindContain && flagFindDownKey && positionKey != -100 && positionContent != -100)
-                {
-                    jsonNodoSearch = new JsonNodo(jsonNodo.getPuntatore().get(i).getPuntatore().get(positionKey).getValue(), jsonNodo.getPuntatore().get(i).getPuntatore().get(positionContent).getValue());
-                }
-            }
-
-            searchNodoWithDownKeyAndContain(jsonNodo.getPuntatore().get(i), key, downKey, contain);
-        }
-    }
-
-    /**
-     * ricerca particolare, perchè cerca una key che continete una downkey con il valore
+     * cerca una key che continete una downkey con il valore
      * @param jsonNodo jsonNodo su cui cercare
      * @param key la key che ti serve cercare
      * @param downKey la sottochiave che ti serve cercare
@@ -209,7 +167,7 @@ public class JsonTree implements Serializable
      * @param downKey sotto key da cercare
      * @return object trovato
      */
-    public Object searchKeyWithDownKey(String key, String downKey)
+    public JsonLeaf searchKeyWithDownKey(String key, String downKey)
     {
         jsonNodoSearch = null;
         if (jsonNodo != null)
@@ -218,33 +176,7 @@ public class JsonTree implements Serializable
 
             if (jsonNodoSearch != null)
             {
-                return jsonNodoSearch.getValue();
-            }
-            else
-            {
-                Log.e(TAG, "NON E' STATO TROVATO NESSUNA KEY CHE CORRISPONDA A KEY : '" + key + "' E SOTTO KEY : '" + downKey + "'");
-            }
-        }
-        return null;
-    }
-
-    /**
-     * cerca una sottochiave (che contine una stringa passata in input) che il cui padre è la key passata nell'albero
-     * @param key key da ricercare
-     * @param downKey sotto key da ricercare
-     * @param contain cosa deve contenere la sottokey
-     * @return object trovato
-     */
-    public Object searchKeyWithDownKeyAndContain(String key, String downKey, String contain)
-    {
-        jsonNodoSearch = null;
-        if (jsonNodo != null)
-        {
-            searchNodoWithDownKeyAndContain(jsonNodo, key, downKey, contain);
-
-            if (jsonNodoSearch != null)
-            {
-                return jsonNodoSearch.getValue();
+                return new JsonLeaf(jsonNodoSearch);
             }
             else
             {
@@ -356,13 +288,8 @@ public class JsonTree implements Serializable
         return null;
     }
 
-    public JsonNodo getJsonNodo() {
+    JsonNodo getJsonNodo() {
         return jsonNodo;
-    }
-
-    public int lengthNode(JsonNodo jsonNodo)
-    {
-        return jsonNodo.getPuntatore().size();
     }
 
     /**

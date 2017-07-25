@@ -3,7 +3,7 @@ package it.acutus.jsontotreecode;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class JsonNodo implements Serializable
+class JsonNodo implements Serializable
 {
     private String key;
     private String value;

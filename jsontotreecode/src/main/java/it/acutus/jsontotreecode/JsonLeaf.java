@@ -4,7 +4,7 @@ public class JsonLeaf
 {
     private JsonNodo jsonNodo;
 
-    public JsonLeaf(JsonNodo jsonNodo)
+    JsonLeaf(JsonNodo jsonNodo)
     {
         this.jsonNodo = jsonNodo;
     }
