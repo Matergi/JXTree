@@ -1,33 +1,41 @@
 package it.acutus.jsontotreecode;
 
-public class JsonLeaf
-{
-    private JsonNodo jsonNodo;
+import it.acutus.jsontotreecode.parserXml.parser.XmlToJson;
 
-    JsonLeaf(JsonNodo jsonNodo)
+public class JXLeaf
+{
+    private JXNodo JXNodo;
+
+    JXLeaf(JXNodo JXNodo)
     {
-        this.jsonNodo = jsonNodo;
+        this.JXNodo = JXNodo;
     }
 
-    public JsonLeaf(JsonTree jsonTree)
+    JXLeaf(JXTree JXTree)
     {
-        this.jsonNodo = jsonTree.getJsonNodo();
+        this.JXNodo = JXTree.getJXNodo();
     }
 
     public int size()
     {
-        return jsonNodo.getPuntatore().size();
+        return JXNodo.getPuntatore().size();
     }
 
     public String getValue()
     {
-        if (jsonNodo.getValue() != null)
+        if (JXNodo.getValue() != null)
         {
-            return jsonNodo.getValue();
+            String value = JXNodo.getValue();
+            value = value.replace(XmlToJson.preTag + "element_", XmlToJson.array);
+            value = value.replace(XmlToJson.afterTag, XmlToJson.array);
+            return value;
         }
         else if (size() > 0)
         {
-            return buildJsonFromPuntatori();
+            String value = buildJsonFromPuntatori();
+            value = value.replace(XmlToJson.preTag + "element_", XmlToJson.array);
+            value = value.replace(XmlToJson.afterTag, XmlToJson.array);
+            return value;
         }
         else
         {
@@ -56,7 +64,7 @@ public class JsonLeaf
             else
             {
                 json += "\"" + get(i).getKey() + "\" : ";
-                if (get(i).getValue().startsWith("{"))
+                if (get(i).getValue().startsWith("{") || get(i).getValue().startsWith("["))
                 {
                     json += get(i).getValue();
                 }
@@ -73,18 +81,18 @@ public class JsonLeaf
 
     public String getKey()
     {
-        return jsonNodo.getKey();
+        return JXNodo.getKey();
     }
 
-    public JsonLeaf get(int i)
+    public JXLeaf get(int i)
     {
-        return new JsonLeaf(jsonNodo.getPuntatore().get(i));
+        return new JXLeaf(JXNodo.getPuntatore().get(i));
     }
 
-    public JsonLeaf search(String key)
+    public JXLeaf search(String key)
     {
-        JsonTree jsonTree = new JsonTree();
-        return jsonTree.searchKeySameLevel(key, jsonNodo);
+        JXTree JXTree = new JXTree();
+        return JXTree.searchKeySameLevel(key, JXNodo);
     }
 
     public boolean contain(String key, String value)
@@ -98,5 +106,10 @@ public class JsonLeaf
             }
         }
         return found;
+    }
+
+    public boolean isArray()
+    {
+        return JXNodo.isArray();
     }
 }

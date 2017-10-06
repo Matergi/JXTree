@@ -4,8 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import it.acutus.jsontotreecode.JsonLeaf;
-import it.acutus.jsontotreecode.JsonTree;
+import it.acutus.jsontotreecode.JXLeaf;
+import it.acutus.jsontotreecode.JXTree;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,11 +31,34 @@ public class MainActivity extends AppCompatActivity {
                 "    ]\n" +
                 "}";
 
-        JsonTree jsonTree = new JsonTree();
-        jsonTree.buildTree(json);
+        JXTree jsonTree = new JXTree();
+        jsonTree.buildTreeFromJson(json);
 
-        JsonLeaf foglia = jsonTree.searchKey("result");
+        JXLeaf fogliaJson = jsonTree.searchKey("result");
 
-        Log.d("a", foglia.getValue());
+        Log.d("example", "all: " + fogliaJson.getValue());
+        Log.d("example", "key: " + fogliaJson.get(1).search("c").getValue());
+
+        String xml = "<catalog>\n" +
+                "       <book id=\"1\">\n" +
+                "           <title>titolo 1</title>\n" +
+                "           <author>autore 1</author>\n" +
+                "       </book>\n" +
+                "       <book id=\"2\">\n" +
+                "           <title>titolo 2</title>\n" +
+                "           <author>autore 2</author>\n" +
+                "       </book>\n" +
+                "       <book id=\"3\">\n" +
+                "           <title>titolo 3</title>\n" +
+                "           <author>autore 3</author>\n" +
+                "       </book>\n" +
+                "</catalog>";
+
+        JXTree xmlTree = new JXTree();
+        xmlTree.buildTreeFromXml(xml);
+
+        JXLeaf fogliaXml = xmlTree.searchKey("book");
+
+        Log.d("example", "key: " + fogliaXml.get(1).search("title").getValue());
     }
 }
