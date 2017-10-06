@@ -32,12 +32,15 @@ public class MainActivity extends AppCompatActivity {
                 "}";
 
         JXTree jsonTree = new JXTree();
-        jsonTree.buildTreeFromJson(json);
+        jsonTree.buildTreeFromJson(json); //costruisce l'albero in base al Json passato
 
-        JXLeaf fogliaJson = jsonTree.searchKey("result");
+        JXLeaf fogliaJson = jsonTree.searchKey("result"); //cerca la key 'result' nell'albero e restituisce la foglia
+
+// se fogliaJson nel 'value' contiene un Array si puo sfruttare la funzione .size() per sapere la lunghezza dell'array di oggetti che contiene ovvero:
+        Log.d("example", "size: " + fogliaJson.size());
 
         Log.d("example", "all: " + fogliaJson.getValue());
-        Log.d("example", "key: " + fogliaJson.get(1).search("c").getValue());
+        Log.d("example", "key: " + fogliaJson.get(1).search("c").getValue()); // tramite la funzione get() si accede ad un elemento nell'array, mentre tramite la funzione search si ha la possibilità di cercare un'altra key all'interno della foglia
 
         String xml = "<catalog>\n" +
                 "       <book id=\"1\">\n" +
@@ -55,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
                 "</catalog>";
 
         JXTree xmlTree = new JXTree();
-        xmlTree.buildTreeFromXml(xml);
+        xmlTree.buildTreeFromXml(xml); //costruisce l'albero in base al Xml passato
 
-        JXLeaf fogliaXml = xmlTree.searchKey("book");
+        JXLeaf fogliaXml = xmlTree.searchKey("book"); //cerca la key 'book' nell'albero e restituisce la foglia
 
         Log.d("example", "key: " + fogliaXml.get(1).search("title").getValue());
     }
