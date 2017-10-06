@@ -18,7 +18,7 @@ Aggiungere la dipendenza al modulo nel rispettivo gradle con :
 ```java
 dependencies 
 {
-  compile 'com.github.AcutusDeveloper:JsonToTree:1.1.0'
+  compile 'com.github.AcutusDeveloper:JXTree:1.1.0'
 }
 ```
 
