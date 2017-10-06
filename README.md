@@ -1,5 +1,5 @@
-# JsonToTree
-Trasforma un Json in una struttura ad albero       
+# JXTree
+JXTree trasforma un JSON/XML in una struttura ad albero       
 
 ## Importare la libreria nel progetto     
 Inserire nel build.gradle generale del progetto le seguenti righe di codice :  
